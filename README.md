@@ -71,3 +71,8 @@ font-family: Outfit;
     <button className='block md:hidden ml-3'>
     <Image src={assets.menu_black} alt="" className='w-6'/>
     </button>
+
+18. mobile ko lagi kaam garyo
+19. Header banayo
+20. Layout.js ma yeti garyo: className={`${outfit.className} ${ovo.variable} antialiased leading-8
+    overflow-x-hidden`} leading le spacing dincha
