@@ -319,9 +319,4 @@ className={`${outfit.className} ${ovo.variable} antialiased leading-8 overflow-x
 ## 🔗 Live Demo
 https://my-portfolio-two-sigma-z37cyvf5yz.vercel.app
 
-<iframe src="https://my-portfolio-two-sigma-z37cyvf5yz.vercel.app" 
-        width="100%" 
-        height="500px">
-</iframe>
-
 
