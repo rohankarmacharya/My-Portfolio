@@ -83,21 +83,28 @@ export const workData = [
         title: 'Frontend project',
         description: 'Web Design',
         bgImage: '/work-1.png',
+        link: 'https://github.com/rohankarmacharya/Bodhya-React',
+
     },
     {
-        title: 'Geo based app',
-        description: 'Mobile App',
+        title: 'Recommendation app',
+        description: 'Web App',
         bgImage: '/work-2.png',
+        link: 'https://github.com/rohankarmacharya/SujhavMitra',
     },
     {
-        title: 'Photography site',
-        description: 'Web Design',
+        title: 'Barcode/PDF417 reader',
+        description: 'Web App',
         bgImage: '/work-3.png',
+        link: 'https://github.com/rohankarmacharya/BarCode_PDF417_reader',
+
     },
     {
-        title: 'UI/UX designing',
-        description: 'UI/UX Design',
+        title: 'Tourism/Travel app',
+        description: 'Web App',
         bgImage: '/work-4.png',
+        link: 'https://github.com/rohankarmacharya/Digital-Yatra-Nepal',
+
     },
 ]
 

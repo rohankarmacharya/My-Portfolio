@@ -34,29 +34,33 @@ const Navbar = () => {
   return (
     <>
       {/* Background Image */}
-      <div className='fixed top-0 right-0 w-11/12 -z-10 translate-y-[-80%]'>
+      <div className='fixed top-0 right-0 w-11/12 -z-10 translate-y-[-80%] '>
         <Image src={assets.header_bg_color} alt="" className='w-full'/>
       </div>
 
       {/* Navbar */}
-      <nav className={`w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50 transition-all duration-300
+      <nav className={`w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center z-50 transition-all duration-300
         ${isScroll ? "bg-white bg-opacity-50 backdrop-blur-lg shadow-sm" : ""}`}
       >
         {/* Logo */}
-        <button onClick={() => scrollToSection('top')}>
-          <Image src={assets.logo} alt="Logo" className="w-28 cursor-pointer mr-14"/>
-        </button>
+        <div className='flex items-center'>
+          <button onClick={() => scrollToSection('top')}>
+            <Image src={assets.logo} alt="Logo" className="w-28 cursor-pointer"/>
+          </button>
+        </div>
 
-        {/* Desktop Menu */}
-        <ul className={`hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3
-          ${isScroll ? "" : "bg-white shadow-sm bg-opacity-50"}`
-        }>
-          <li><button className='font-ovo' onClick={() => scrollToSection('top')}>Home</button></li>
-          <li><button className='font-ovo' onClick={() => scrollToSection('about')}>About me</button></li>
-          <li><button className='font-ovo' onClick={() => scrollToSection('services')}>Services</button></li>
-          <li><button className='font-ovo' onClick={() => scrollToSection('work')}>My Work</button></li>
-          <li><button className='font-ovo' onClick={() => scrollToSection('contact')}>Contact me</button></li>
-        </ul>
+        {/* Desktop Menu (centered, slightly nudged right) */}
+        <div className='flex-1 flex justify-center'>
+          <ul className={`hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 ml-17
+            ${isScroll ? "" : "bg-white shadow-sm bg-opacity-50"}`
+          }>
+            <li><button className='font-ovo' onClick={() => scrollToSection('top')}>Home</button></li>
+            <li><button className='font-ovo' onClick={() => scrollToSection('about')}>About me</button></li>
+            <li><button className='font-ovo' onClick={() => scrollToSection('services')}>Services</button></li>
+            <li><button className='font-ovo' onClick={() => scrollToSection('work')}>My Work</button></li>
+            <li><button className='font-ovo' onClick={() => scrollToSection('contact')}>Contact me</button></li>
+          </ul>
+        </div>
 
         {/* Right buttons */}
         <div className='flex items-center gap-4'>
