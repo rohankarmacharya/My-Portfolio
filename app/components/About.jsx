@@ -61,7 +61,7 @@ const About = () => {
             {[
               'Based in Lalitpur, Nepal',
               'Backend-first, frontend-fluent',
-              'Currently exploring Go & distributed systems',
+              'Currently exploring Go, NestJS & distributed systems',
             ].map((fact) => (
               <motion.li key={fact} variants={fadeUp} className='flex items-center gap-3 text-sm text-fg-muted'>
                 <span className='w-1.5 h-1.5 rounded-full bg-accent-2 shrink-0' />

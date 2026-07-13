@@ -1,9 +1,19 @@
 import React from 'react'
-import Image from 'next/image'
-import { assets } from '@/assets/assets'
 import { motion } from "motion/react"
 import { fadeUp, stagger, viewport } from './motionVariants'
-import { earlierWork } from '@/app/data/portfolioData'
+import { personalProjects } from '@/app/data/portfolioData'
+import VisualFrame from './Projects/visuals/VisualFrame'
+import BodhyaVisual from './PersonalWork/visuals/BodhyaVisual'
+import SujhavMitraVisual from './PersonalWork/visuals/SujhavMitraVisual'
+import BarcodeVisual from './PersonalWork/visuals/BarcodeVisual'
+import DigitalYatraVisual from './PersonalWork/visuals/DigitalYatraVisual'
+
+const VISUALS = {
+  bodhya: BodhyaVisual,
+  sujhavmitra: SujhavMitraVisual,
+  barcode: BarcodeVisual,
+  yatra: DigitalYatraVisual,
+}
 
 const EarlierWork = () => {
   return (
@@ -14,7 +24,7 @@ const EarlierWork = () => {
         viewport={viewport}
         variants={fadeUp}
         className="text-center mb-2 text-sm tracking-[0.2em] uppercase text-fg-muted font-mono">
-        Archive
+        Independent work
       </motion.p>
 
       <motion.h2
@@ -23,7 +33,7 @@ const EarlierWork = () => {
         viewport={viewport}
         variants={fadeUp}
         className="text-center text-2xl sm:text-3xl font-semibold tracking-tight mb-3">
-        Earlier work
+        Personal projects
       </motion.h2>
 
       <motion.p
@@ -32,7 +42,8 @@ const EarlierWork = () => {
         viewport={viewport}
         variants={fadeUp}
         className="text-center max-w-xl mx-auto mb-12 text-sm text-fg-muted">
-        Frontend-leaning class projects from earlier on — kept here for the record.
+        Unlike the case studies above, these were built on my own time and are
+        public — the links go straight to the repos.
       </motion.p>
 
       <motion.div
@@ -40,31 +51,41 @@ const EarlierWork = () => {
         whileInView="show"
         viewport={viewport}
         variants={stagger(0.1)}
-        className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto"
+        className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto"
       >
-        {earlierWork.map((project, index) => (
-          <motion.a
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            variants={fadeUp}
-            whileHover={{ y: -4 }}
-            key={index}
-            className="group aspect-square bg-no-repeat bg-cover bg-center rounded-xl relative overflow-hidden border border-border opacity-80 hover:opacity-100 transition-opacity duration-300"
-            style={{ backgroundImage: `url(${project.bgImage})` }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
-            <div className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-2">
-              <div className="min-w-0">
-                <h3 className="text-xs font-semibold text-white truncate">{project.title}</h3>
-                <p className="text-[10px] text-white/70 truncate">{project.description}</p>
+        {personalProjects.map((project) => {
+          const Visual = VISUALS[project.visual]
+          return (
+            <motion.a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              variants={fadeUp}
+              whileHover={{ y: -4 }}
+              key={project.slug}
+              className="group glass-panel rounded-2xl p-5 flex flex-col gap-4 hover:border-accent/50 transition-colors duration-300"
+            >
+              {Visual && <VisualFrame aspect="aspect-[16/9]"><Visual /></VisualFrame>}
+
+              <div>
+                <div className="flex items-center justify-between gap-3 mb-1.5">
+                  <h3 className="font-semibold group-hover:text-accent transition-colors duration-300">{project.title}</h3>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current text-fg-muted shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                    <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                  </svg>
+                </div>
+                <p className="text-sm text-fg-muted leading-relaxed mb-3">{project.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {project.stack.map((s) => (
+                    <span key={s} className="text-[11px] font-mono px-2.5 py-1 rounded-full border border-border text-fg-muted">
+                      {s}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <div className="shrink-0 w-6 h-6 rounded-full bg-white flex items-center justify-center">
-                <Image src={assets.send_icon} alt="" className="w-3" />
-              </div>
-            </div>
-          </motion.a>
-        ))}
+            </motion.a>
+          )
+        })}
       </motion.div>
     </div>
   )

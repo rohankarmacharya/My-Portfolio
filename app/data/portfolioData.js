@@ -254,12 +254,41 @@ export const journey = [
   },
 ];
 
-// Earlier frontend-leaning work — kept as a small archive, not the main narrative.
-export const earlierWork = [
-  { title: "Frontend project", description: "Web Design", bgImage: "/work-1.png", link: "https://github.com/rohankarmacharya/Bodhya-React" },
-  { title: "Recommendation app", description: "Web App", bgImage: "/work-2.png", link: "https://github.com/rohankarmacharya/SujhavMitra" },
-  { title: "Barcode/PDF417 reader", description: "Web App", bgImage: "/work-3.png", link: "https://github.com/rohankarmacharya/BarCode_PDF417_reader" },
-  { title: "Tourism/Travel app", description: "Web App", bgImage: "/work-4.png", link: "https://github.com/rohankarmacharya/Digital-Yatra-Nepal" },
+// Personal projects — built independently, distinct from the client/company
+// case studies above: real public repos, so these link out directly.
+export const personalProjects = [
+  {
+    slug: "bodhya-react",
+    title: "Bodhya",
+    description: "An e-commerce storefront for Bodhya, my self-owned apparel brand — product browsing, cart, and checkout.",
+    stack: ["React"],
+    link: "https://github.com/rohankarmacharya/Bodhya-React",
+    visual: "bodhya",
+  },
+  {
+    slug: "sujhavmitra",
+    title: "SujhavMitra",
+    description: "A personalized recommendation system for books and movies, using content-based and collaborative filtering.",
+    stack: ["React", "Python", "Flask"],
+    link: "https://github.com/rohankarmacharya/SujhavMitra",
+    visual: "sujhavmitra",
+  },
+  {
+    slug: "barcode-pdf417-reader",
+    title: "Barcode / PDF417 Reader",
+    description: "A barcode and PDF-417 reader for store checkout, decoding codes straight from a camera feed with Python.",
+    stack: ["Python", "OpenCV", "React"],
+    link: "https://github.com/rohankarmacharya/BarCode_PDF417_reader",
+    visual: "barcode",
+  },
+  {
+    slug: "digital-yatra-nepal",
+    title: "Digital Yatra Nepal",
+    description: "A tourism companion for Nepal — destinations, recommendations, travel news, and passport/portal info for visitors.",
+    stack: ["TypeScript", "React"],
+    link: "https://github.com/rohankarmacharya/Digital-Yatra-Nepal",
+    visual: "yatra",
+  },
 ];
 
 // "Off the clock" — personality expressed visually/quietly, not as paragraphs.

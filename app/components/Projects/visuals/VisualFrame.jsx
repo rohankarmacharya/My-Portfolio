@@ -4,8 +4,8 @@ import React from 'react'
  * Consistent glass frame every per-project generative visual renders inside,
  * so five very different SVGs still read as one system.
  */
-const VisualFrame = ({ children, className = '' }) => (
-  <div className={`relative aspect-[4/3] rounded-3xl glass-panel overflow-hidden ${className}`}>
+const VisualFrame = ({ children, className = '', aspect = 'aspect-[4/3]' }) => (
+  <div className={`relative ${aspect} rounded-3xl glass-panel overflow-hidden ${className}`}>
     <div
       className="absolute inset-0 opacity-[0.07]"
       style={{
