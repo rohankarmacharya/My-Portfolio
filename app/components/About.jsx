@@ -1,19 +1,20 @@
-import { assets, infoList, toolsData } from '@/assets/assets'
+import { assets } from '@/assets/assets'
 import React from 'react'
 import Image from 'next/image'
 import { motion } from "motion/react"
-import { fadeUp, fadeIn, scaleIn, stagger, viewport } from './motionVariants'
+import { fadeUp, scaleIn, stagger, viewport } from './motionVariants'
+import { philosophyPrinciples } from '@/app/data/portfolioData'
 
 const About = () => {
   return (
-    <div id='about' className='w-full px-[12%] py-24 scroll-mt-20'>
+    <div id='about' className='w-full px-[6%] sm:px-[12%] py-24 scroll-mt-20'>
       <motion.p
         initial="hidden"
         whileInView="show"
         viewport={viewport}
         variants={fadeUp}
-        className='text-center mb-2 text-sm tracking-[0.2em] uppercase text-accent font-medium'>
-        Introduction
+        className='text-center mb-2 text-sm tracking-[0.2em] uppercase text-accent font-mono'>
+        About &amp; Philosophy
       </motion.p>
 
       <motion.h2
@@ -21,8 +22,8 @@ const About = () => {
         whileInView="show"
         viewport={viewport}
         variants={fadeUp}
-        className='text-center text-4xl sm:text-5xl font-ovo'>
-        About me
+        className='text-center text-4xl sm:text-5xl font-semibold tracking-tight'>
+        How I think about backends
       </motion.h2>
 
       <motion.div
@@ -30,60 +31,79 @@ const About = () => {
         whileInView="show"
         viewport={viewport}
         variants={stagger(0.15)}
-        className='flex w-full flex-col lg:flex-row items-center gap-16 lg:gap-20 my-16'>
+        className='flex w-full flex-col lg:flex-row items-center gap-16 lg:gap-20 mt-16 mb-20'>
 
         {/* Left Image */}
         <motion.div variants={scaleIn} className='relative shrink-0'>
-          <div className="absolute -inset-3 rounded-[2rem] bg-accent/10 -z-10" />
-          <div className='w-60 sm:w-72 rounded-3xl overflow-hidden border border-border'>
-            <Image src={assets.user_image} alt='Rohan Karmacharya' className='w-full' />
+          <div className="absolute -inset-3 rounded-[2rem] bg-accent/15 blur-2xl -z-10" />
+          <div className='w-60 sm:w-72 rounded-3xl overflow-hidden glass-panel p-1.5'>
+            <div className="rounded-[1.3rem] overflow-hidden">
+              <Image src={assets.user_image} alt='Rohan Karmacharya' className='w-full' />
+            </div>
           </div>
         </motion.div>
 
         {/* Right Content */}
-        <motion.div variants={fadeUp} className='flex-1'>
-          <p className='mb-10 max-w-2xl text-fg-muted text-lg leading-relaxed'>
-            I&apos;m Rohan, a developer specializing in React, Next.js and Python.
-            I build elegant, high-performance interfaces and enjoy transforming
-            concepts into polished, interactive digital products and applications.
-          </p>
+        <motion.div variants={stagger(0.12)} className='flex-1 flex flex-col gap-8'>
+          <motion.div variants={stagger(0.08)} className='max-w-2xl text-fg-muted text-lg leading-relaxed flex flex-col gap-3'>
+            <motion.p variants={fadeUp}>I design the parts users never see—but always depend on.</motion.p>
+            <motion.p variants={fadeUp}>Most people experience software through beautiful interfaces.</motion.p>
+            <motion.p variants={fadeUp}>I enjoy building everything beneath them.</motion.p>
+            <motion.p variants={fadeUp}>
+              From authentication and permissions to scalable APIs, background workers,
+              database design, and AI integrations, I focus on the infrastructure that
+              keeps products fast, secure, and dependable in production.
+            </motion.p>
+            <motion.p variants={fadeUp}>
+              Over the past few years I&apos;ve been building enterprise applications,
+              architecting backend services, and continuously refining how software
+              should be designed—not just to work today, but to remain understandable
+              months and years later.
+            </motion.p>
+            <motion.p variants={fadeUp}>
+              I believe the best backend is one nobody notices—because everything simply works.
+            </motion.p>
+          </motion.div>
 
-          {/* INFO CARDS */}
-          <motion.ul
-            variants={stagger(0.1)}
-            className='grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-2xl'>
-            {infoList.map(({ icon, title, description }, index) => (
-              <motion.li
-                variants={fadeUp}
-                whileHover={{ y: -4 }}
-                key={index}
-                className='group border border-border rounded-2xl p-6 cursor-default hover:border-accent hover:bg-accent-soft transition-colors duration-300'
-              >
-                <Image src={icon} alt="" className='w-6 mb-4 dark:invert' />
-                <h3 className='mb-2 font-semibold group-hover:text-accent transition-colors duration-300'>{title}</h3>
-                <p className='text-fg-muted text-sm leading-relaxed'>{description}</p>
-              </motion.li>
-            ))}
-          </motion.ul>
+          <motion.p variants={fadeUp} className='max-w-xl text-2xl sm:text-[28px] font-medium leading-snug text-fg border-l-2 border-accent pl-5'>
+            Every system I build should survive an audit, not just a demo.
+          </motion.p>
 
-          <motion.h4 variants={fadeUp} className='mt-10 mb-5 text-fg-muted font-ovo'>
-            Tools I use
-          </motion.h4>
-
-          <motion.ul variants={stagger(0.08)} className='flex flex-wrap items-center gap-3 sm:gap-4'>
-            {toolsData.map((tool, index) => (
-              <motion.li
-                variants={scaleIn}
-                whileHover={{ y: -3, scale: 1.08 }}
-                className='flex items-center justify-center w-12 sm:w-14 aspect-square border border-border rounded-xl cursor-default hover:border-accent hover:bg-accent-soft transition-colors duration-300'
-                key={index}
-              >
-                <Image src={tool} alt='' className='w-5 sm:w-7' />
+          <motion.ul variants={stagger(0.08)} className='flex flex-col gap-3 max-w-xl'>
+            {[
+              'Based in Lalitpur, Nepal',
+              'Backend-first, frontend-fluent',
+              'Currently exploring Go, NestJS & distributed systems',
+            ].map((fact) => (
+              <motion.li key={fact} variants={fadeUp} className='flex items-center gap-3 text-sm text-fg-muted'>
+                <span className='w-1.5 h-1.5 rounded-full bg-accent-2 shrink-0' />
+                {fact}
               </motion.li>
             ))}
           </motion.ul>
         </motion.div>
       </motion.div>
+
+      {/* Philosophy cards */}
+      <motion.ul
+        initial="hidden"
+        whileInView="show"
+        viewport={viewport}
+        variants={stagger(0.1)}
+        className='grid grid-cols-1 sm:grid-cols-2 gap-5'>
+        {philosophyPrinciples.map(({ title, description }, index) => (
+          <motion.li
+            variants={fadeUp}
+            whileHover={{ y: -4 }}
+            key={index}
+            className='group glass-panel rounded-2xl p-7 cursor-default hover:border-accent/50 transition-colors duration-300'
+          >
+            <span className="font-mono text-xs text-accent-2">{String(index).padStart(2, '0')}</span>
+            <h3 className='mt-3 mb-2 font-semibold group-hover:text-accent transition-colors duration-300'>{title}</h3>
+            <p className='text-fg-muted text-sm leading-relaxed'>{description}</p>
+          </motion.li>
+        ))}
+      </motion.ul>
     </div>
   )
 }

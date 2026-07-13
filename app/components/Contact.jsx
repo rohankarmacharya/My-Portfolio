@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { assets } from '@/assets/assets';
 import { motion } from "motion/react"
 import { fadeUp, viewport } from './motionVariants'
+import MagneticButton from './MagneticButton'
+import AuroraBackground from './AuroraBackground'
 
 const Contact = () => {
   const handleSubmit = (e) => {
@@ -12,26 +14,29 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="w-full px-[12%] py-24 scroll-mt-20">
+    <section id="contact" className="relative w-full px-[6%] sm:px-[12%] py-24 scroll-mt-20 overflow-hidden">
+      <AuroraBackground className="opacity-70" />
+
       <motion.div
         className="max-w-3xl mx-auto"
         initial="hidden"
         whileInView="show"
         viewport={viewport}
       >
-        <motion.p variants={fadeUp} className="text-center mb-2 text-sm tracking-[0.2em] uppercase text-accent font-medium">
+        <motion.p variants={fadeUp} className="text-center mb-2 text-sm tracking-[0.2em] uppercase text-accent font-mono">
           Get in touch
         </motion.p>
-        <motion.h2 variants={fadeUp} className="text-center text-4xl sm:text-5xl font-ovo mb-4">
-          Let&apos;s work together
+        <motion.h2 variants={fadeUp} className="text-center text-4xl sm:text-5xl font-semibold tracking-tight mb-4">
+          Let&apos;s build something reliable
         </motion.h2>
         <motion.p variants={fadeUp} className="text-center max-w-xl mx-auto mb-12 text-fg-muted">
-          Have a project, idea, or opportunity you&apos;d like to discuss? Fill out the form below and I&apos;ll get back to you as soon as possible.
+          Have a backend, API, or system you need designed or untangled? Fill out the form
+          below and I&apos;ll get back to you as soon as possible.
         </motion.p>
 
         <motion.div
           variants={fadeUp}
-          className="bg-surface border border-border rounded-2xl shadow-xl shadow-fg/5 p-6 md:p-9"
+          className="glass-panel rounded-2xl shadow-xl shadow-fg/5 p-6 md:p-9"
         >
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div className="flex flex-col gap-2">
@@ -93,9 +98,7 @@ const Contact = () => {
               <p className="text-xs text-fg-muted">
                 I typically respond within 24–48 hours.
               </p>
-              <motion.button
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.97 }}
+              <MagneticButton
                 type="submit"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-fg px-7 py-3 text-sm font-medium text-bg hover:bg-accent hover:text-accent-fg transition-colors duration-300"
               >
@@ -103,7 +106,7 @@ const Contact = () => {
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4 fill-current">
                   <path d="M4 12h14m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
                 </svg>
-              </motion.button>
+              </MagneticButton>
             </div>
           </form>
         </motion.div>
@@ -113,7 +116,7 @@ const Contact = () => {
             href="https://mail.google.com/mail/?view=cm&to=rohankarmacharya.biz@gmail.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-ovo text-fg-muted flex items-center gap-2 hover:text-accent transition-colors duration-300"
+            className="font-mono text-fg-muted flex items-center gap-2 hover:text-accent transition-colors duration-300"
           >
             <Image src={assets.mail_icon} alt="" className="w-5 dark:invert" />
             rohankarmacharya.biz@gmail.com
