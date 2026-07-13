@@ -11,9 +11,23 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
 });
 
+const TITLE = "Rohan Karmacharya — Backend Developer";
+const DESCRIPTION = "Portfolio of Rohan Karmacharya, a backend developer building scalable systems with Go, Node.js and TypeScript — clean architecture, RBAC, and AI-integrated APIs.";
+
 export const metadata = {
-  title: "Rohan Karmacharya — Backend Developer",
-  description: "Portfolio of Rohan Karmacharya, a backend developer building scalable systems with Go, Node.js and TypeScript — clean architecture, RBAC, and AI-integrated APIs.",
+  metadataBase: new URL("https://my-portfolio-two-sigma-z37cyvf5yz.vercel.app"),
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 const THEME_INIT_SCRIPT = `

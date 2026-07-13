@@ -40,7 +40,7 @@ const Chip = ({ name, icon: Icon }) => (
     className="group flex items-center gap-2.5 px-4 py-2.5 rounded-xl glass-panel hover:border-accent/50 transition-colors duration-300 cursor-default"
   >
     {Icon ? (
-      <Icon className="w-4 h-4 text-fg-muted group-hover:text-accent transition-colors duration-300 shrink-0" />
+      <Icon aria-hidden="true" className="w-4 h-4 text-fg-muted group-hover:text-accent transition-colors duration-300 shrink-0" />
     ) : (
       <span className="w-4 h-4 rounded-sm bg-accent/15 text-accent text-[9px] font-mono font-bold flex items-center justify-center shrink-0">
         {name.slice(0, 1)}

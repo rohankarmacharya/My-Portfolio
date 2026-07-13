@@ -141,7 +141,7 @@ const Hero = () => {
 
           <MagneticButton
             as="a"
-            href="/CV.pdf"
+            href="/CV(2).pdf"
             download="Rohan_Karmacharya_Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"

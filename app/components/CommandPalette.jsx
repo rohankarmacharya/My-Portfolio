@@ -17,7 +17,7 @@ const toggleTheme = () => {
 
 const downloadResume = () => {
   const a = document.createElement('a')
-  a.href = '/CV.pdf'
+  a.href = '/CV(2).pdf'
   a.download = 'Rohan_Karmacharya_Resume.pdf'
   a.target = '_blank'
   a.rel = 'noopener noreferrer'
@@ -160,7 +160,7 @@ const CommandPalette = () => {
     <>
       <button
         onClick={() => setOpen(true)}
-        aria-label="Open command palette"
+        aria-label="Open command palette (⌘K)"
         className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-full border border-border text-fg-muted text-xs font-mono hover:border-accent hover:text-accent transition-colors duration-300 cursor-pointer"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current">

@@ -61,7 +61,7 @@ const AIExperience = () => {
               const Icon = ICONS[point.label]
               return (
                 <motion.li key={point.label} variants={scaleIn} className="flex items-center gap-3 glass-panel rounded-xl px-4 py-3">
-                  {Icon && <Icon className="w-4 h-4 text-accent shrink-0" />}
+                  {Icon && <Icon aria-hidden="true" className="w-4 h-4 text-accent shrink-0" />}
                   <span className="text-sm">
                     <span className="font-medium">{point.label}</span>
                     <span className="text-fg-muted"> — {point.description}</span>
