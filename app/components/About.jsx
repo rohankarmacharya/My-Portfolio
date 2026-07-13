@@ -45,13 +45,25 @@ const About = () => {
 
         {/* Right Content */}
         <motion.div variants={stagger(0.12)} className='flex-1 flex flex-col gap-8'>
-          <motion.p variants={fadeUp} className='max-w-2xl text-fg-muted text-lg leading-relaxed'>
-            I&apos;m Rohan, a backend developer who builds scalable systems in Go, Node.js,
-            and TypeScript — clean architecture, REST APIs, and the unglamorous plumbing
-            (auth, permissions, background jobs) that makes a product trustworthy in
-            production, not just in a demo. I&apos;m as interested in why a system is
-            structured a certain way as I am in shipping the feature.
-          </motion.p>
+          <motion.div variants={stagger(0.08)} className='max-w-2xl text-fg-muted text-lg leading-relaxed flex flex-col gap-3'>
+            <motion.p variants={fadeUp}>I design the parts users never see—but always depend on.</motion.p>
+            <motion.p variants={fadeUp}>Most people experience software through beautiful interfaces.</motion.p>
+            <motion.p variants={fadeUp}>I enjoy building everything beneath them.</motion.p>
+            <motion.p variants={fadeUp}>
+              From authentication and permissions to scalable APIs, background workers,
+              database design, and AI integrations, I focus on the infrastructure that
+              keeps products fast, secure, and dependable in production.
+            </motion.p>
+            <motion.p variants={fadeUp}>
+              Over the past few years I&apos;ve been building enterprise applications,
+              architecting backend services, and continuously refining how software
+              should be designed—not just to work today, but to remain understandable
+              months and years later.
+            </motion.p>
+            <motion.p variants={fadeUp}>
+              I believe the best backend is one nobody notices—because everything simply works.
+            </motion.p>
+          </motion.div>
 
           <motion.p variants={fadeUp} className='max-w-xl text-2xl sm:text-[28px] font-medium leading-snug text-fg border-l-2 border-accent pl-5'>
             Every system I build should survive an audit, not just a demo.
