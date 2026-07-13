@@ -44,6 +44,7 @@ const NAV = [
   { id: 'stack', label: 'Stack' },
   { id: 'work', label: 'Work' },
   { id: 'journey', label: 'Journey' },
+  { id: 'personal', label: 'Personal' },
   { id: 'contact', label: 'Contact' },
 ];
 

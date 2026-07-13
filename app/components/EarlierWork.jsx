@@ -17,7 +17,7 @@ const VISUALS = {
 
 const EarlierWork = () => {
   return (
-    <div className="w-full px-[6%] sm:px-[12%] py-20 scroll-mt-20">
+    <div id="personal" className="w-full px-[6%] sm:px-[12%] py-20 scroll-mt-20">
       <motion.p
         initial="hidden"
         whileInView="show"

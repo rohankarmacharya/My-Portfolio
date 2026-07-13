@@ -305,6 +305,7 @@ export const commandActions = (helpers) => [
   { id: "stack", label: "Go to Tech Stack", section: "stack" },
   { id: "work", label: "Go to Projects", section: "work" },
   { id: "journey", label: "Go to Journey", section: "journey" },
+  { id: "personal", label: "Go to Personal Projects", section: "personal" },
   { id: "contact", label: "Go to Contact", section: "contact" },
   { id: "theme", label: "Toggle theme", action: helpers?.toggleTheme },
   { id: "email", label: "Copy email address", action: helpers?.copyEmail },

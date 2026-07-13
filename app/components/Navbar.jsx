@@ -15,6 +15,7 @@ const NAV_LINKS = [
   { id: 'stack', label: 'Stack' },
   { id: 'work', label: 'Work' },
   { id: 'journey', label: 'Journey' },
+  { id: 'personal', label: 'Personal' },
   { id: 'contact', label: 'Contact' },
 ]
 
@@ -31,24 +32,29 @@ const Navbar = () => {
   }
 
   useEffect(() => {
-    const handleScroll = () => setIsScroll(window.scrollY > 50)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  useEffect(() => {
     const sections = NAV_LINKS.map(({ id }) => document.getElementById(id)).filter(Boolean)
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
-        if (visible[0]) setActive(visible[0].target.id)
-      },
-      { rootMargin: '-40% 0px -50% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] }
-    )
-    sections.forEach((section) => observer.observe(section))
-    return () => observer.disconnect()
+    // A section's own intersection-crossing events go quiet while the user
+    // sits inside it (especially a short one), which starves an
+    // IntersectionObserver-entries approach into showing a stale neighbor.
+    // Recomputing "current section" directly from geometry on every scroll
+    // tick is robust regardless of how tall any given section is.
+    const REFERENCE_LINE = 160
+
+    const handleScroll = () => {
+      setIsScroll(window.scrollY > 50)
+
+      let current = sections[0]?.id
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top - REFERENCE_LINE <= 0) {
+          current = section.id
+        }
+      }
+      if (current) setActive(current)
+    }
+
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
