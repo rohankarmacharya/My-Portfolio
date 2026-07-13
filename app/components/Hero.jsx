@@ -43,11 +43,11 @@ const Hero = () => {
           return (
             <motion.span
               key={tag}
-              className="absolute font-mono text-xs px-3 py-1.5 rounded-full border border-border text-fg-muted/70 glass-panel"
+              className="absolute font-mono text-xs px-3 py-1.5 rounded-full border border-border text-fg glass-panel shadow-sm"
               style={pos}
               initial={{ opacity: 0 }}
-              animate={reduceMotion ? { opacity: 0.7 } : {
-                opacity: 0.7,
+              animate={reduceMotion ? { opacity: 0.8 } : {
+                opacity: 0.8,
                 y: [0, -14, 0],
               }}
               transition={reduceMotion ? { duration: 0.6 } : {
@@ -74,8 +74,24 @@ const Hero = () => {
           transition={{ duration: 0.9, type: "spring", stiffness: 90, delay: 0.1 }}
           className="relative"
         >
-          <div className="absolute inset-0 rounded-full bg-accent/30 blur-2xl scale-110" />
-          <div className="relative rounded-full p-1 glass-panel">
+          {/* Breathing ambient glow */}
+          <motion.div
+            className="absolute inset-0 rounded-full blur-2xl"
+            style={{ background: 'radial-gradient(circle, var(--color-accent), var(--color-accent-2))' }}
+            initial={{ scale: 1.1, opacity: 0.5 }}
+            animate={reduceMotion ? { scale: 1.1, opacity: 0.5 } : { scale: [1.1, 1.35, 1.1], opacity: [0.4, 0.7, 0.4] }}
+            transition={{ duration: 3.2, repeat: reduceMotion ? 0 : Infinity, ease: 'easeInOut' }}
+          />
+
+          {/* Slowly rotating gradient ring */}
+          <motion.div
+            className="absolute -inset-1.5 rounded-full"
+            style={{ background: 'conic-gradient(from 0deg, var(--color-accent), var(--color-accent-2), transparent 60%, var(--color-accent))' }}
+            animate={reduceMotion ? {} : { rotate: 360 }}
+            transition={{ duration: 9, repeat: reduceMotion ? 0 : Infinity, ease: 'linear' }}
+          />
+
+          <div className="relative rounded-full p-1 glass-panel bg-bg">
             <Image src={assets.profile_img} alt="Rohan Karmacharya" className="rounded-full w-28 sm:w-32" priority />
           </div>
         </motion.div>
