@@ -1,100 +1,159 @@
+"use client";
+
 import Image from 'next/image'
 import React, { useEffect, useRef, useState } from 'react'
 import { assets } from '@/assets/assets'
+import { motion, AnimatePresence } from "motion/react"
+import ThemeToggle from './ThemeToggle'
+
+const NAV_LINKS = [
+  { id: 'top', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'services', label: 'Services' },
+  { id: 'work', label: 'Work' },
+  { id: 'contact', label: 'Contact' },
+]
 
 const Navbar = () => {
   const [isScroll, setIsScroll] = useState(false)
-  const sideMenuRef = useRef()
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [active, setActive] = useState('top')
+  const [isDark, setIsDark] = useState(false)
 
-  // Open/Close mobile menu
-  const openMenu = () => {
-    sideMenuRef.current.style.transform = 'translateX(-16rem)'
-  }
-  const closeMenu = () => {
-    sideMenuRef.current.style.transform = 'translateX(16rem)'
-  }
+  useEffect(() => {
+    setIsDark(document.documentElement.classList.contains('dark'))
+  }, [])
 
-  // Smooth scroll to section
   const scrollToSection = (id) => {
     const el = document.getElementById(id)
     if (el) el.scrollIntoView({ behavior: 'smooth' })
-    closeMenu() // close mobile menu if open
+    setMenuOpen(false)
   }
 
-  // Scroll detection for navbar background
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) setIsScroll(true)
-      else setIsScroll(false)
-    }
+    const handleScroll = () => setIsScroll(window.scrollY > 50)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    const sections = NAV_LINKS.map(({ id }) => document.getElementById(id)).filter(Boolean)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
+        if (visible[0]) setActive(visible[0].target.id)
+      },
+      { rootMargin: '-40% 0px -50% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] }
+    )
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <>
-      {/* Background Image */}
-      <div className='fixed top-0 right-0 w-11/12 -z-10 translate-y-[-80%] '>
-        <Image src={assets.header_bg_color} alt="" className='w-full'/>
-      </div>
-
-      {/* Navbar */}
-      <nav className={`w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center z-50 transition-all duration-300
-        ${isScroll ? "bg-white bg-opacity-50 backdrop-blur-lg shadow-sm" : ""}`}
+      <nav
+        className={`w-full fixed top-0 px-5 lg:px-8 xl:px-[8%] py-4 flex items-center z-50 transition-all duration-300
+        ${isScroll ? "bg-bg/80 backdrop-blur-lg border-b border-border shadow-sm" : "bg-transparent"}`}
       >
         {/* Logo */}
         <div className='flex items-center'>
-          <button onClick={() => scrollToSection('top')}>
-            <Image src={assets.logo} alt="Logo" className="w-28 cursor-pointer"/>
+          <button onClick={() => scrollToSection('top')} className="cursor-pointer">
+            <Image src={isDark ? assets.logo_dark : assets.logo} alt="Rohan Karmacharya" className="w-24 sm:w-28" priority />
           </button>
         </div>
 
-        {/* Desktop Menu (centered, slightly nudged right) */}
+        {/* Desktop Menu */}
         <div className='flex-1 flex justify-center'>
-          <ul className={`hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 ml-17
-            ${isScroll ? "" : "bg-white shadow-sm bg-opacity-50"}`
-          }>
-            <li><button className='font-ovo' onClick={() => scrollToSection('top')}>Home</button></li>
-            <li><button className='font-ovo' onClick={() => scrollToSection('about')}>About me</button></li>
-            <li><button className='font-ovo' onClick={() => scrollToSection('services')}>Services</button></li>
-            <li><button className='font-ovo' onClick={() => scrollToSection('work')}>My Work</button></li>
-            <li><button className='font-ovo' onClick={() => scrollToSection('contact')}>Contact me</button></li>
+          <ul className='hidden md:flex items-center gap-1 rounded-full px-3 py-1.5 border border-border bg-surface/60 backdrop-blur-sm'>
+            {NAV_LINKS.map(({ id, label }) => (
+              <li key={id} className="relative">
+                <button
+                  onClick={() => scrollToSection(id)}
+                  className={`relative z-10 px-4 py-2 text-sm rounded-full transition-colors duration-300 cursor-pointer ${
+                    active === id ? 'text-accent-fg' : 'text-fg-muted hover:text-fg'
+                  }`}
+                >
+                  {label}
+                </button>
+                {active === id && (
+                  <motion.div
+                    layoutId="nav-pill"
+                    className="absolute inset-0 rounded-full bg-accent"
+                    transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                  />
+                )}
+              </li>
+            ))}
           </ul>
         </div>
 
-        {/* Right buttons */}
-        <div className='flex items-center gap-4'>
-          <button>
-            <Image src={assets.moon_icon} alt="Dark Mode" className='w-6'/>
-          </button>
-        </div>
+        {/* Right side */}
+        <div className='flex items-center gap-3'>
+          <ThemeToggle />
 
-        <div>
           <button
             onClick={() => scrollToSection('contact')}
-            className='hidden lg:flex items-center gap-3 px-10 py-2.5 border border-gray-500 rounded-full ml-4 font-ovo'
+            className='hidden lg:flex items-center gap-2 px-6 py-2.5 rounded-full bg-fg text-bg text-sm font-medium hover:bg-accent hover:text-accent-fg transition-colors duration-300 cursor-pointer'
           >
-            Contact <Image src={assets.arrow_icon} alt="Arrow" className='w-3'/>
+            Let&apos;s talk
           </button>
 
           {/* Mobile menu button */}
-          <button className='block md:hidden ml-3' onClick={openMenu}>
-            <Image src={assets.menu_black} alt="Menu" className='w-6'/>
+          <button
+            className='flex md:hidden items-center justify-center w-9 h-9 rounded-full border border-border text-fg'
+            onClick={() => setMenuOpen(true)}
+            aria-label="Open menu"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4 fill-current">
+              <path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z" />
+            </svg>
           </button>
         </div>
-
-        {/* Mobile Menu */}
-        <ul ref={sideMenuRef} className='flex md:hidden flex-col gap-4 py-20 px-10 fixed -right-0 top-0 bottom-0 w-64 z-50 h-screen bg-rose-50 transition duration-500'>
-          <div className='absolute right-6 top-6' onClick={closeMenu}>
-            <Image src={assets.close_black} alt='Close' className='w-5 cursor-pointer'/>
-          </div>
-          <li><button className='font-ovo' onClick={() => scrollToSection('about')}>About me</button></li>
-          <li><button className='font-ovo' onClick={() => scrollToSection('services')}>Services</button></li>
-          <li><button className='font-ovo' onClick={() => scrollToSection('work')}>My Work</button></li>
-          <li><button className='font-ovo' onClick={() => scrollToSection('top')}>Home</button></li>
-          <li><button className='font-ovo' onClick={() => scrollToSection('contact')}>Contact me</button></li>
-        </ul>
       </nav>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {menuOpen && (
+          <>
+            <motion.div
+              className="fixed inset-0 bg-black/40 z-50"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMenuOpen(false)}
+            />
+            <motion.ul
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', stiffness: 300, damping: 32 }}
+              className='flex md:hidden flex-col gap-2 py-20 px-8 fixed right-0 top-0 bottom-0 w-72 z-50 h-screen bg-surface border-l border-border'
+            >
+              <button
+                className='absolute right-6 top-6 w-8 h-8 flex items-center justify-center rounded-full border border-border text-fg'
+                onClick={() => setMenuOpen(false)}
+                aria-label="Close menu"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4 fill-current">
+                  <path d="m6.4 5-1.4 1.4 5.6 5.6-5.6 5.6L6.4 19l5.6-5.6 5.6 5.6 1.4-1.4-5.6-5.6L19 6.4 17.6 5 12 10.6 6.4 5Z" />
+                </svg>
+              </button>
+              {NAV_LINKS.map(({ id, label }) => (
+                <li key={id}>
+                  <button
+                    onClick={() => scrollToSection(id)}
+                    className={`font-ovo text-lg w-full text-left py-2 transition-colors ${active === id ? 'text-accent' : 'text-fg-muted hover:text-fg'}`}
+                  >
+                    {label}
+                  </button>
+                </li>
+              ))}
+            </motion.ul>
+          </>
+        )}
+      </AnimatePresence>
     </>
   )
 }

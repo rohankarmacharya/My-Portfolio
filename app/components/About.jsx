@@ -2,101 +2,83 @@ import { assets, infoList, toolsData } from '@/assets/assets'
 import React from 'react'
 import Image from 'next/image'
 import { motion } from "motion/react"
+import { fadeUp, fadeIn, scaleIn, stagger, viewport } from './motionVariants'
 
 const About = () => {
   return (
-    <div id='about' className='w-full px-[12%] py-10 scroll-mt-20'>
-      <motion.h4
-        initial={{opacity:0, y: -20}}
-        whileInView={{opacity:1, y:0}}
-        transition={{duration: 0.5, delay: 0.3}}
-        viewport={{ once: false, amount: 0.5 }} 
-        className='text-center mb-2 text-lg font-ovo'>
+    <div id='about' className='w-full px-[12%] py-24 scroll-mt-20'>
+      <motion.p
+        initial="hidden"
+        whileInView="show"
+        viewport={viewport}
+        variants={fadeUp}
+        className='text-center mb-2 text-sm tracking-[0.2em] uppercase text-accent font-medium'>
         Introduction
-      </motion.h4>
+      </motion.p>
 
-      <motion.h2 
-        initial={{opacity:0, y: -20}}
-        whileInView={{opacity:1, y:0}}
-        transition={{duration: 0.5, delay: 0.5}}
-        viewport={{ once: false, amount: 0.5 }} 
-        className='text-center text-5xl font-ovo'>
+      <motion.h2
+        initial="hidden"
+        whileInView="show"
+        viewport={viewport}
+        variants={fadeUp}
+        className='text-center text-4xl sm:text-5xl font-ovo'>
         About me
       </motion.h2>
 
-      <motion.div 
-        initial={{opacity:0}}
-        whileInView={{opacity:1}}
-        transition={{duration: 0.8}}
-        viewport={{ once: false, amount: 0.4 }} 
-        className='flex w-full flex-col lg:flex-row items-center gap-20 my-20'>
-        
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={viewport}
+        variants={stagger(0.15)}
+        className='flex w-full flex-col lg:flex-row items-center gap-16 lg:gap-20 my-16'>
+
         {/* Left Image */}
-        <motion.div
-          initial={{opacity:0, scale: 0.9}}
-          whileInView={{opacity:1, scale: 1}}
-          transition={{duration: 0.6}}
-          viewport={{ once: false, amount: 0.5 }} 
-          className='w-64 sm:w-80 rounded-3xl max-w-none'>
-          <Image src={assets.user_image} alt='user' className='w-full rounded-3xl' />
+        <motion.div variants={scaleIn} className='relative shrink-0'>
+          <div className="absolute -inset-3 rounded-[2rem] bg-accent/10 -z-10" />
+          <div className='w-60 sm:w-72 rounded-3xl overflow-hidden border border-border'>
+            <Image src={assets.user_image} alt='Rohan Karmacharya' className='w-full' />
+          </div>
         </motion.div>
 
         {/* Right Content */}
-        <motion.div
-          initial={{opacity:0}}
-          whileInView={{opacity:1}}
-          transition={{duration: 0.6, delay: 0.3}}
-          viewport={{ once: false, amount: 0.4 }} 
-          className='flex-1'>
-          <p className='mb-10 max-w-2xl font-ovo'>
-            I’m Rohan, a developer specializing in React, Next.js and Python. 
-            I build elegant, high-performance interfaces and enjoy transforming 
+        <motion.div variants={fadeUp} className='flex-1'>
+          <p className='mb-10 max-w-2xl text-fg-muted text-lg leading-relaxed'>
+            I&apos;m Rohan, a developer specializing in React, Next.js and Python.
+            I build elegant, high-performance interfaces and enjoy transforming
             concepts into polished, interactive digital products and applications.
           </p>
 
           {/* INFO CARDS */}
           <motion.ul
-            initial={{opacity:0, y: 10}}
-            whileInView={{opacity:1, y:0}}
-            transition={{duration: 0.7, delay: 0.4}}
-            viewport={{ once: false, amount: 0.3 }}
-            className='grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl'>
-            {infoList.map(({ icon, iconDark, title, description }, index) => (
-              
+            variants={stagger(0.1)}
+            className='grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-2xl'>
+            {infoList.map(({ icon, title, description }, index) => (
               <motion.li
-              whileHover={{scale: 1.05}}
+                variants={fadeUp}
+                whileHover={{ y: -4 }}
                 key={index}
-                className='border border-gray-400/40 rounded-xl p-6 cursor-pointer hover:-translate-y-2 hover:scale-[1.03] hover:bg-[#6b2782]/10 hover:border-[#6b2782] hover:shadow-[0px_0px_20px_rgba(107,39,130,0.3)] transition-all duration-300 ease-out'
+                className='group border border-border rounded-2xl p-6 cursor-default hover:border-accent hover:bg-accent-soft transition-colors duration-300'
               >
-                <Image src={icon} alt={title} className='w-7 mt-3' />
-                <h3 className='my-4 font-semibold text-gray-700'>{title}</h3>
-                <p className='text-gray-600 text-sm'>{description}</p>
+                <Image src={icon} alt="" className='w-6 mb-4 dark:invert' />
+                <h3 className='mb-2 font-semibold group-hover:text-accent transition-colors duration-300'>{title}</h3>
+                <p className='text-fg-muted text-sm leading-relaxed'>{description}</p>
               </motion.li>
-
             ))}
           </motion.ul>
-          <motion.h4 
-            initial={{opacity:0, y: 20}}
-            whileInView={{opacity:1, y:0}}
-            transition={{duration: 0.5, delay: 0.5}}
-            viewport={{ once: false, amount: 0.5 }}
-            className='my-6 text-gray-700 font-ovo'>
+
+          <motion.h4 variants={fadeUp} className='mt-10 mb-5 text-fg-muted font-ovo'>
             Tools I use
           </motion.h4>
 
-          <motion.ul 
-            initial={{opacity:0, y: 10}}
-            whileInView={{opacity:1, y:0}}
-            transition={{duration: 0.6, delay: 0.6}}
-            viewport={{ once: false, amount: 0.3 }}
-            className='flex items-center gap-3 sm:gap-5'>
+          <motion.ul variants={stagger(0.08)} className='flex flex-wrap items-center gap-3 sm:gap-4'>
             {toolsData.map((tool, index) => (
               <motion.li
-              whileHover={{scale:1.1}}
-                className='flex items-center justify-center w-12 sm:w-14 aspect-square border border-gray-400 rounded-lg cursor-pointer hover:-translate-y-1 duration-500 hover:bg-[#6b2782]/10'
+                variants={scaleIn}
+                whileHover={{ y: -3, scale: 1.08 }}
+                className='flex items-center justify-center w-12 sm:w-14 aspect-square border border-border rounded-xl cursor-default hover:border-accent hover:bg-accent-soft transition-colors duration-300'
                 key={index}
               >
-                <Image src={tool} alt='Tool' className='w-5 sm:w-7' />
+                <Image src={tool} alt='' className='w-5 sm:w-7' />
               </motion.li>
             ))}
           </motion.ul>
