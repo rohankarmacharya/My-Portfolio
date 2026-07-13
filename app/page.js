@@ -1,23 +1,35 @@
 "use client";
 
-import About from "./components/About";
-import Header from "./components/Header";
 import Navbar from "./components/Navbar";
-import Services from "./components/Services";
-import Work from "./components/Work";
+import ScrollProgress from "./components/ScrollProgress";
+import Hero from "./components/Hero";
+import About from "./components/About";
+import TechStack from "./components/TechStack";
+import ProjectsSection from "./components/Projects/ProjectsSection";
+import ArchitectureMindset from "./components/ArchitectureMindset";
+import AIExperience from "./components/AIExperience";
+import Journey from "./components/Journey";
+import EarlierWork from "./components/EarlierWork";
+import Personality from "./components/Personality";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
 export default function Home() {
   return (
     <>
-    <Navbar />
-    <Header  />
-    <About />
-    <Services />
-    <Work />
-    <Contact />
-    <Footer />
+      <ScrollProgress />
+      <Navbar />
+      <Hero />
+      <About />
+      <TechStack />
+      <ProjectsSection />
+      <ArchitectureMindset />
+      <AIExperience />
+      <Journey />
+      <EarlierWork />
+      <Personality />
+      <Contact />
+      <Footer />
     </>
   );
 }

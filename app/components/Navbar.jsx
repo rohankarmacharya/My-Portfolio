@@ -1,16 +1,20 @@
 "use client";
 
 import Image from 'next/image'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { assets } from '@/assets/assets'
 import { motion, AnimatePresence } from "motion/react"
 import ThemeToggle from './ThemeToggle'
+import CommandPalette from './CommandPalette'
+import MagneticButton from './MagneticButton'
+import useIsDarkMode from './useIsDarkMode'
 
 const NAV_LINKS = [
   { id: 'top', label: 'Home' },
   { id: 'about', label: 'About' },
-  { id: 'services', label: 'Services' },
+  { id: 'stack', label: 'Stack' },
   { id: 'work', label: 'Work' },
+  { id: 'journey', label: 'Journey' },
   { id: 'contact', label: 'Contact' },
 ]
 
@@ -18,11 +22,7 @@ const Navbar = () => {
   const [isScroll, setIsScroll] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [active, setActive] = useState('top')
-  const [isDark, setIsDark] = useState(false)
-
-  useEffect(() => {
-    setIsDark(document.documentElement.classList.contains('dark'))
-  }, [])
+  const isDark = useIsDarkMode()
 
   const scrollToSection = (id) => {
     const el = document.getElementById(id)
@@ -55,7 +55,7 @@ const Navbar = () => {
     <>
       <nav
         className={`w-full fixed top-0 px-5 lg:px-8 xl:px-[8%] py-4 flex items-center z-50 transition-all duration-300
-        ${isScroll ? "bg-bg/80 backdrop-blur-lg border-b border-border shadow-sm" : "bg-transparent"}`}
+        ${isScroll ? "glass-panel border-b shadow-sm" : "bg-transparent"}`}
       >
         {/* Logo */}
         <div className='flex items-center'>
@@ -91,14 +91,15 @@ const Navbar = () => {
 
         {/* Right side */}
         <div className='flex items-center gap-3'>
+          <CommandPalette />
           <ThemeToggle />
 
-          <button
+          <MagneticButton
             onClick={() => scrollToSection('contact')}
             className='hidden lg:flex items-center gap-2 px-6 py-2.5 rounded-full bg-fg text-bg text-sm font-medium hover:bg-accent hover:text-accent-fg transition-colors duration-300 cursor-pointer'
           >
             Let&apos;s talk
-          </button>
+          </MagneticButton>
 
           {/* Mobile menu button */}
           <button
@@ -144,7 +145,7 @@ const Navbar = () => {
                 <li key={id}>
                   <button
                     onClick={() => scrollToSection(id)}
-                    className={`font-ovo text-lg w-full text-left py-2 transition-colors ${active === id ? 'text-accent' : 'text-fg-muted hover:text-fg'}`}
+                    className={`font-mono text-lg w-full text-left py-2 transition-colors ${active === id ? 'text-accent' : 'text-fg-muted hover:text-fg'}`}
                   >
                     {label}
                   </button>

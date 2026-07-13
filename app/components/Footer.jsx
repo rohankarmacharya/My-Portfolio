@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { assets } from '@/assets/assets';
+import useIsDarkMode from './useIsDarkMode';
 
 const SOCIALS = [
   {
@@ -40,17 +41,22 @@ const SOCIALS = [
 const NAV = [
   { id: 'top', label: 'Home' },
   { id: 'about', label: 'About' },
-  { id: 'services', label: 'Services' },
+  { id: 'stack', label: 'Stack' },
   { id: 'work', label: 'Work' },
+  { id: 'journey', label: 'Journey' },
   { id: 'contact', label: 'Contact' },
 ];
 
 const Footer = () => {
-  const [isDark, setIsDark] = useState(false)
+  const isDark = useIsDarkMode()
 
   useEffect(() => {
-    setIsDark(document.documentElement.classList.contains('dark'))
-  }, [])
+    // Hey, fellow curious dev — thanks for opening devtools.
+    console.log(
+      '%cLooking for the architecture, not just the paint job? Good instinct.',
+      'color:#8b7bff;font-family:monospace;font-size:12px;'
+    )
+  }, []);
 
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
@@ -58,12 +64,12 @@ const Footer = () => {
   };
 
   return (
-    <footer className="w-full px-[12%] pt-12 pb-8 border-t border-border bg-bg-soft">
+    <footer className="w-full px-[6%] sm:px-[12%] pt-12 pb-8 border-t border-border bg-bg-soft">
       <div className="max-w-6xl mx-auto flex flex-col gap-8">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
           <div className="flex flex-col gap-2">
             <Image src={isDark ? assets.logo_dark : assets.logo} alt="Rohan Karmacharya" className="w-24" />
-            <p className="text-xs text-fg-muted">BSc.CSIT student · Aspiring full-stack developer</p>
+            <p className="text-xs text-fg-muted font-mono">Backend Developer · Go · Node.js · TypeScript</p>
           </div>
 
           <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-fg-muted">
@@ -79,7 +85,7 @@ const Footer = () => {
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 text-xs text-fg-muted">
           <div className="flex items-center gap-3">
-            <span className="uppercase tracking-[0.18em] text-[10px]">Connect</span>
+            <span className="uppercase tracking-[0.18em] text-[10px] font-mono">Connect</span>
             <div className="flex items-center gap-2">
               {SOCIALS.map(({ label, href, hoverClass, path }) => (
                 <a
@@ -98,9 +104,9 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="flex flex-col sm:items-end gap-1">
+          <div className="flex flex-col sm:items-end gap-1 font-mono">
             <p>© {new Date().getFullYear()} Rohan Karmacharya. All rights reserved.</p>
-            <p>Designed &amp; built with React and Next.js.</p>
+            <p>Designed &amp; built with Next.js, Tailwind, and Framer Motion.</p>
           </div>
         </div>
       </div>

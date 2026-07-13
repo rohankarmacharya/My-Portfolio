@@ -1,20 +1,16 @@
 "use client";
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { motion, AnimatePresence } from "motion/react"
+import useIsDarkMode from './useIsDarkMode'
 
 const ThemeToggle = ({ className = '' }) => {
-  const [isDark, setIsDark] = useState(false)
-
-  useEffect(() => {
-    setIsDark(document.documentElement.classList.contains('dark'))
-  }, [])
+  const isDark = useIsDarkMode()
 
   const toggle = () => {
     const next = !isDark
     document.documentElement.classList.toggle('dark', next)
     localStorage.setItem('theme', next ? 'dark' : 'light')
-    setIsDark(next)
   }
 
   return (
